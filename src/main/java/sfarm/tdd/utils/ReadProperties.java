@@ -21,23 +21,38 @@ Properties properties;
 			e.printStackTrace();
 		}
 	}
-	
-	public String getProperty(String key) {
-		if(key != null) {
+
+	public String getProperties(String key) {
+		if (key != null) {
 			return properties.getProperty(key);
-		}else {
+		} else {
 			return null;
-		}	
-	}
-	
-	public long getNumProperty(String key) {
-		String value = getProperty(key);
-		if(value != null) {
-			String refinedValue = value.trim().replaceAll("[^0-9]", "");
-			return Long.parseLong(refinedValue);
-		}else {
-			return 0;
-		}	
+		}
+
 	}
 
+	public long getNumProperties(String key) {
+		String value = getProperties(key);
+		if (value != null) {
+			String refinedValue = value.trim().replaceAll("[^0-9]", "");
+			return Long.parseLong(refinedValue);
+		} else {
+			return 0;
+		}
+
+	}
+
+	// Unit test of my code
+
+//	public static void main(String[] args) {
+//		ReadProperties readProperties = new ReadProperties();
+//		String url = readProperties.getProperties("url");
+//		System.out.println(url);
+//		String url1 = readProperties.getProperties(null);
+//		System.out.println(url1);
+//		String url2 = readProperties.getProperties("pageloadtime");
+//		System.out.println(url2);
+//		String url3 = readProperties.getProperties("browser");
+//		System.out.println(url3);
+//	}
 }
