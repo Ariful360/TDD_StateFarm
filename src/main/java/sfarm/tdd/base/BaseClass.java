@@ -23,61 +23,68 @@ import com.github.dockerjava.api.model.Driver;
 import com.github.dockerjava.transport.DockerHttpClient.Request.Method;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import sfarm.tdd.objects.AddressPage;
+import sfarm.tdd.objects.AutoQuotePage;
 import sfarm.tdd.objects.LandingPage;
+import sfarm.tdd.objects.RenterQuotePage;
 import sfarm.tdd.reporting.ExtentReporting;
 import sfarm.tdd.reporting.ExtentTestManager;
 import sfarm.tdd.utils.Constant;
 import sfarm.tdd.utils.ReadProperties;
 
-public class BaseClass extends ExtentListener{
+public class BaseClass extends ExtentListener {
 	protected WebDriver driver;
-	public LandingPage landingPage;
 	ReadProperties envVar = new ReadProperties();
-	
+	protected LandingPage landingPage;
+	protected AddressPage addressPage;
+	protected RenterQuotePage renterQuotePage;
+	protected AutoQuotePage autoQuotePage;
 
-	//@Parameters("browser")
-	
+	@Parameters("browser")
 	@BeforeMethod
-	public void setUpDriver() {
-		String browser = envVar.getProperties(BROWSER);
+	public void setUpDriver(String browserName) {
+		// String browser = envVar.getProperties(BROWSER);
 		String url = envVar.getProperties(URL);
-		//driver.get(envVar.getProperties(URL));
+		// driver.get(envVar.getProperties(URL));
 		long pageLoadWait = envVar.getNumProperties(PAGELOAD_WAIT);
-		long implicitWait=envVar.getNumProperties(IMPLICITLY_WAIT);
-		//long explicitWait=envVar.getNumProperty(EXPLICITLY_WAIT);
-		initDriver(browser);
+		long implicitWait = envVar.getNumProperties(IMPLICITLY_WAIT);
+		// long explicitWait=envVar.getNumProperty(EXPLICITLY_WAIT);
+		initDriver(browserName);
 		initClasses(driver);
 		driver.get(url);
 		driver.manage().window().maximize();
+		driver.manage().deleteAllCookies();
 		driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(pageLoadWait));
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(implicitWait));
-				
+
 	}
-	
+
 	private void initClasses(WebDriver driver) {
 		landingPage = new LandingPage(driver);
-		
+		addressPage = new AddressPage(driver);
+		autoQuotePage = new AutoQuotePage(driver);
+		renterQuotePage = new RenterQuotePage(driver);
+
 	}
-	
-	
+
 	private void initDriver(String driverName) {
 		switch (driverName) {
-		
+
 		case CHROME:
 			WebDriverManager.chromedriver().setup();
 			driver = new ChromeDriver();
 			break;
-		
+
 		case FIREFOX:
 			WebDriverManager.firefoxdriver().setup();
 			driver = new FirefoxDriver();
 			break;
-			
+
 		case EDGE:
 			WebDriverManager.edgedriver().setup();
 			driver = new EdgeDriver();
 			break;
-			
+
 		case SAFARI:
 			WebDriverManager.safaridriver().setup();
 			driver = new SafariDriver();
@@ -88,28 +95,28 @@ public class BaseClass extends ExtentListener{
 			driver = new ChromeDriver();
 			break;
 		}
-		
+
 	}
-	
-	
+
 	@AfterMethod
 	public void tearUp() {
 		driver.quit();
 	}
-	
+
 	@AfterMethod
 	public void getResult(ITestResult result) {
-		if(result.getStatus() == ITestResult.SUCCESS) {
+		if (result.getStatus() == ITestResult.SUCCESS) {
 			test.log(Status.PASS, PASSED);
-		}else if(result.getStatus() == ITestResult.FAILURE) {
+		} else if (result.getStatus() == ITestResult.FAILURE) {
 			test.log(Status.FAIL, FAILED);
-		}else if(result.getStatus() == ITestResult.SKIP) {
+			test.addScreenCaptureFromPath(captureScreenShot(driver));
+		} else if (result.getStatus() == ITestResult.SKIP) {
 			test.log(Status.SKIP, SKIPPED);
 		}
 	}
-	
+
 	@SuppressWarnings("unused")
-	private String getString(Constant constant){
+	private String getString(Constant constant) {
 		return constant.name();
 	}
 }

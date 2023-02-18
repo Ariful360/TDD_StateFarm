@@ -5,9 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import static sfarm.tdd.common.CommonActions.*;
-import sfarm.tdd.base.BaseClass;
-
-public class LandingPage extends BaseClass {
+public class LandingPage {
 
 	public LandingPage(WebDriver driver) {
 		PageFactory.initElements(driver, this);
@@ -15,18 +13,16 @@ public class LandingPage extends BaseClass {
 
 	@FindBy(id = "oneX-sf-logo-mobile")
 	WebElement pageLogo;
-
-	@FindBy(id = "//span[text()='Log in']")
+	@FindBy(xpath = "//span[text()='Log in']")
 	WebElement loginBtn;
 	@FindBy(name = "IDToken1")
 	WebElement userId;
 	@FindBy(name = "IDToken2")
 	WebElement password;
-	@FindBy(className = "-oneX-login-remember-me-label")
+	@FindBy(xpath = "//label[contains(text(),'Remember my')]")
 	WebElement rememberMeBox;
 	@FindBy(css = "button.-oneX-util-login-button.-oneX-btn-primary.-oneX-btn-fit-content")
 	WebElement loginBtn02;
-	
 
 	public void validatePageLogo(String expectedLogo) throws InterruptedException {
 		validate(pageLogo, expectedLogo);
@@ -47,11 +43,11 @@ public class LandingPage extends BaseClass {
 		Thread.sleep(3000);
 	}
 	public void clickRememberMeBox() throws InterruptedException {
-		clickRememberMeBox();
+		click(rememberMeBox);
 		Thread.sleep(3000);
 	}
 	public void clickLoginBtn02() throws InterruptedException {
-		click(loginBtn);
+		click(loginBtn02);
 		Thread.sleep(3000);
 		
 	}

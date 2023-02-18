@@ -4,15 +4,22 @@ import org.testng.annotations.Test;
 
 import sfarm.tdd.base.BaseClass;
 
-public class AutoQuoteTest extends BaseClass{
+public class AutoQuoteTest extends BaseClass {
 
-	@Test
-	public void autoTest() throws InterruptedException {
-		landingPage.clickLoginBtn();
-		landingPage.insertUserId("ariful123");
-		landingPage.insertPassword("03223451");
-		landingPage.clickRememberMeBox();
-		landingPage.clickLoginBtn02();
-		
+	@Test(enabled = false, groups = "auto")
+	public void autoQuoteTest() throws InterruptedException {
+		addressPage.validateHomePageTitle("Create an affordable price, just for you");
+		addressPage.zipCode("11372");
+		addressPage.clickStartAQuote();
+		addressPage.clickContinueBtn();
+		autoQuotePage.insertFirstName("Ariful");
+		autoQuotePage.insertlasttName("Islam");
+		autoQuotePage.insertAddress("1234 Woodside Ave");
+		autoQuotePage.insertAptNumber("3A");
+		autoQuotePage.insertDOB("12-12-1999");
+		autoQuotePage.clickCheckBox();
+		autoQuotePage.clicknextVehiclesBtn();
+
 	}
+
 }
