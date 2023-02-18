@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Suite">
+	<parameter name="browser" value="chrome"></parameter>
+	<test thread-count="5" name="Test">
+		<parameter name="homePageTitle" value="Create an affordable price, just for you"></parameter>
+		<parameter name="zipCode" value="11372"></parameter>
+		<parameter name="firstName" value="Ariful"></parameter>
+		<parameter name="lastName" value="Islam"></parameter>
+		<parameter name="address" value="1234 Woodside ave"></parameter>
+		<parameter name="aptNum" value="3C"></parameter>
+		<parameter name="DOB" value="12-12-1999"></parameter>
+		<classes>
+			<class name="test_auto.ParameterizedTest" />
+		</classes>
+	</test> <!-- Test -->
+</suite> <!-- Suite -->

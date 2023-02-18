@@ -33,7 +33,7 @@ public class UnitTest {
 	public void folderOps() {
 		File folder = new File("screenShot");
 		System.out.println(folder.getAbsolutePath());
-		System.out.println(folder.mkdir());
+		System.out.println(folder.mkdirs());
 	}
 	
 	@Test(enabled = false)

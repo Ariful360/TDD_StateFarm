@@ -1,21 +1,21 @@
 package sfarm.tdd.utils;
 
 public class AutoData {
+	private String homePageTitle;
 	private String zipCode;
-	private String addressPageTitle;
-	private String landingPageTitle;
-	private String getAQtPageTitle;
+	private String firstName;
+	private String lastName;
 
-	public AutoData(String zipCode, String addressPageTitle1, String landingPageTitle, String getAQtPageTitle) {
-		if(zipCode == null || addressPageTitle1 == null || landingPageTitle == null || getAQtPageTitle == null ||
-				zipCode.length() == 0 || addressPageTitle1.length() == 0 || landingPageTitle.length() == 0
-				|| getAQtPageTitle.length() == 0) {
+	public AutoData(String homePageTitle, String zipCode, String firstName, String lastName) {
+		if (homePageTitle == null || zipCode == null || firstName == null || lastName == null
+				|| homePageTitle.length() == 0 || zipCode.length() == 0 || firstName.length() == 0
+				|| lastName.length() == 0) {
 			throw new NullPointerException();
-		}else {
+		} else {
+			this.homePageTitle = homePageTitle;
 			this.zipCode = zipCode;
-			addressPageTitle = addressPageTitle1;
-			this.landingPageTitle = landingPageTitle;
-			this.getAQtPageTitle = getAQtPageTitle;
+			this.firstName = firstName;
+			this.lastName = lastName;
 		}
 	}
 
@@ -23,16 +23,16 @@ public class AutoData {
 		return zipCode;
 	}
 
-	public String getAddressPageTitle() {
-		return addressPageTitle;
+	public String getHomePageTitle() {
+		return homePageTitle;
 	}
 
-	public String getLandingPageTitle() {
-		return landingPageTitle;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public String getGetAQtPageTitle() {
-		return getAQtPageTitle;
+	public String getLastName() {
+		return lastName;
 	}
 
 }
